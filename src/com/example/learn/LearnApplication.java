@@ -27,7 +27,7 @@ public class LearnApplication extends Application {
 		panel.setSizeFull();
 		VerticalSplitPanel vsplit = new VerticalSplitPanel();
 		vsplit.addComponent(new Label("Evaluation des competeces"));
-		vsplit.addComponent(eleve);
+		vsplit.addComponent(login);
 		vsplit.setSplitPosition(15, Sizeable.UNITS_PERCENTAGE);
 		vsplit.setLocked(true);
 		panel.setContent(vsplit);
