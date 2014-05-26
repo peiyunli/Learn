@@ -56,4 +56,15 @@ public class Oracle {
 		}
 		return container;
 	}
+
+	public SQLContainer log_verif(String login, String pwd) {
+		SQLContainer container = null;
+		try {
+			FreeformQuery que = new FreeformQuery("SELECT * FROM user WHERE mail =" + login + " AND password =" + pwd, connectionPool);
+			container = new SQLContainer(que);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return container;
+	}
 }
