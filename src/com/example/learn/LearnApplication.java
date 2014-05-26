@@ -25,8 +25,8 @@ public class LearnApplication extends Application {
 	@SuppressWarnings("deprecation")
 	@Override
 	public void init() {
-		Oracle oracle = new Oracle("localhost", "root", "root");
-		user=oracle.queryTable("UTILISATEUR","ID_UTILISATEUR");
+		//Oracle oracle = new Oracle("localhost", "root", "root");
+		//user=oracle.queryTable("UTILISATEUR","ID_UTILISATEUR");
 		Window mainwindow = new Window("EVALUATION DES COMPETENCES");
 		Panel panel = new Panel();		
 		Tuteur tuteur = new Tuteur();
