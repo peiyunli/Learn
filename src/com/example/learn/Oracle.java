@@ -27,14 +27,14 @@ public class Oracle
  generator = new DefaultSQLGenerator();
  }
  
- public SQLContainer queryTable(String tableName, String key)
+ public SQLContainer queryTable(String tableName)
  {
  SQLContainer container = null;
  
  try
  {
  TableQuery tq = new TableQuery(tableName, connectionPool, generator); 
- tq.setVersionColumn(key);
+ //tq.setVersionColumn(key);
  container = new SQLContainer(tq);
  
  System.out.println("container created for table " + tableName);

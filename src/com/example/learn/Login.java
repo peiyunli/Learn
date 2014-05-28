@@ -10,11 +10,12 @@ import com.vaadin.ui.Form;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.Button.ClickEvent;
+import com.vaadin.ui.Window;
 
-public class Login extends CustomComponent {
+public class Login extends Panel {
 	Panel panel;
 
-	public Login() {
+	public Login(Window window) {
 		panel = new Panel("Log in");
 		// Some data source
 	    PropertysetItem item = new PropertysetItem();
@@ -58,7 +59,7 @@ public class Login extends CustomComponent {
 		panel.setStyleName("login");
 		panel.addComponent(form);
 		panel.setWidth("400px");
-		setCompositionRoot(panel);
+
 	}
 
 }
