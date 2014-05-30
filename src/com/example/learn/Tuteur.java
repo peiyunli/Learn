@@ -47,6 +47,7 @@ public class Tuteur extends HorizontalLayout implements ValueChangeListener {
 		select.setItemCaptionPropertyId("name");
 		select.setImmediate(true);
         select.addListener(this);
+
 		this.addComponent(select);
 		
 
@@ -57,10 +58,13 @@ public class Tuteur extends HorizontalLayout implements ValueChangeListener {
 	@Override
 	public void valueChange(com.vaadin.data.Property.ValueChangeEvent event) {
 		RowId row = (RowId) select.getValue();
-		Item item = eleve.getItem(row);
+		RowItem item = (RowItem)eleve.getItem(row);	     
 		String nom = (String) item.getItemProperty("name").getValue();
 		System.out.println(nom);
-		String password = (String) select.getContainerProperty(select.getValue(), "password").getValue();
-		System.out.println(password);
+		Integer id = (Integer) select.getContainerProperty(select.getValue(), "id_user").getValue();
+		competence.addContainerFilter(new Compare.Equal("id_eleve", id));
+		Table comp=new Table(nom,competence);
+		this.addComponent(comp);
+		this.setMargin(true);
 	}
 }
