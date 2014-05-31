@@ -67,4 +67,26 @@ public class Oracle {
 		}
 		return container;
 	}
+	
+	public SQLContainer competence(Integer id){
+		SQLContainer container = null;
+		try {
+			FreeformQuery que = new FreeformQuery("SELECT c.name, c.note FROM competence c WHERE id_eleve =" + id, connectionPool);
+			container = new SQLContainer(que);
+		}catch (SQLException e) {
+		e.printStackTrace();
+	}  
+		return container;
+}
+	
+	public SQLContainer eleve(Integer id,String view){
+		SQLContainer container = null;
+		try {
+			FreeformQuery que = new FreeformQuery("SELECT user.name FROM user WHERE" + view + "=" + id, connectionPool);
+			container = new SQLContainer(que);
+		}catch (SQLException e) {
+		e.printStackTrace();
+	}  
+		return container;
+}
 }

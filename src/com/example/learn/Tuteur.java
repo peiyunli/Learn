@@ -27,20 +27,19 @@ import com.vaadin.ui.Panel;
 import com.vaadin.ui.Table;
 import com.vaadin.ui.TextArea;
 
-public class Tuteur extends HorizontalLayout implements ValueChangeListener {
-	
+public class Tuteur extends HorizontalSplitPanel implements ValueChangeListener {
+	private Oracle oracle;
 	private SQLContainer competence;
 	private SQLContainer eleve;
 	private ListSelect select;
 
 	public Tuteur() {
 				
-		Oracle oracle = new Oracle("jdbc:mysql://localhost:8889/ISEP", "root", "root");
-		eleve =oracle.queryTable("user");
-		competence=oracle.queryTable("competence");
-		competence.addReference(eleve, "id_eleve", "id_user");
-		eleve.addContainerFilter(new Compare.Equal("id_tuteur", "1"));
+		oracle = new Oracle("jdbc:mysql://localhost:8889/ISEP", "root", "root");
+		eleve =oracle.eleve(id, view);
+
 		select = new ListSelect("Groupe1");
+		
 		//select.setNewItemsAllowed(true);
 		select.setNullSelectionAllowed(false);
 		select.setContainerDataSource(eleve);
@@ -49,7 +48,7 @@ public class Tuteur extends HorizontalLayout implements ValueChangeListener {
         select.addListener(this);
 
 		this.addComponent(select);
-		
+		this.setSizeFull();
 
 	}
  
@@ -62,9 +61,12 @@ public class Tuteur extends HorizontalLayout implements ValueChangeListener {
 		String nom = (String) item.getItemProperty("name").getValue();
 		System.out.println(nom);
 		Integer id = (Integer) select.getContainerProperty(select.getValue(), "id_user").getValue();
-		competence.addContainerFilter(new Compare.Equal("id_eleve", id));
-		Table comp=new Table(nom,competence);
+		competence=oracle.competence(id);
+		Table comp=new Table(nom);
+		comp.setContainerDataSource(competence);
+
 		this.addComponent(comp);
 		this.setMargin(true);
+
 	}
 }

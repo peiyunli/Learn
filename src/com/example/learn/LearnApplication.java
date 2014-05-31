@@ -25,43 +25,17 @@ public class LearnApplication extends Application {
 	@Override
 	public void init() {
 		Window mainwindow = new Window("EVALUATION DES COMPETENCES");
+		Header head=new Header();
 		Login login = new Login(mainwindow);		
 		Tuteur tuteur = new Tuteur();
-		Eleve eleve = new Eleve();
+		Eleve eleve = new Eleve(3);
 		VerticalLayout vsplit = new VerticalLayout();
-		vsplit.addComponent(new Label("Evaluation des competeces"));
+		vsplit.addComponent(head);
 		vsplit.addComponent(tuteur);
 		mainwindow.setContent(vsplit);
 		setMainWindow(mainwindow);
 	}
-
-
-	
-	
-
-	public class Eleve extends CustomComponent {
-		Table cop;
-
-		public Eleve() {
-			cop = new Table("name of student");
-			cop.addContainerProperty("ID", Integer.class, null);
-			cop.addContainerProperty("COMPETENCES", String.class, null);
-			cop.addContainerProperty("COMMENT", String.class, null);
-			cop.addItem(new Object[] { "1000", "compntence1", "Moyen" },
-					new Integer(1));
-			cop.addItem(new Object[] { "1001", "compntence2", "Bien" },
-					new Integer(2));
-			cop.addItem(new Object[] { "1002", "compntence3", "Pas mal" },
-					new Integer(3));
-			cop.addItem(new Object[] { "1003", "compntence4", "Bien" },
-					new Integer(4));
-			cop.addItem(new Object[] { "1004", "compntence5", "Super" },
-					new Integer(5));
-			cop.addItem(new Object[] { "1005", "compntence6", "Moyen" },
-					new Integer(6));
-			setCompositionRoot(cop);
-			cop.setPageLength(6);
-		}
-	}
 }
 
+	
+	
