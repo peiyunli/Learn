@@ -25,7 +25,7 @@ public class LearnApplication extends Application {
 	@Override
 	public void init() {
 		Window mainwindow = new Window("EVALUATION DES COMPETENCES");
-		Header head=new Header();
+		//Tuteur head=new Header();
 		Login login = new Login(mainwindow);		
 		Tuteur tuteur = new Tuteur();
 		Eleve eleve = new Eleve(3);
