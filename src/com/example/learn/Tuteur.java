@@ -36,7 +36,7 @@ public class Tuteur extends HorizontalSplitPanel implements ValueChangeListener 
 	public Tuteur() {
 				
 		oracle = new Oracle("jdbc:mysql://localhost:8889/ISEP", "root", "root");
-		eleve =oracle.eleve(id, view);
+		eleve =oracle.eleve(1);
 
 		select = new ListSelect("Groupe1");
 		
