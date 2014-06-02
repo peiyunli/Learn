@@ -82,7 +82,7 @@ public class Oracle {
 	public SQLContainer eleve(Integer id){
 		SQLContainer container = null;
 		try {
-			FreeformQuery que = new FreeformQuery("SELECT user.name FROM user WHERE id_tuteur =" + id, connectionPool);
+			FreeformQuery que = new FreeformQuery("SELECT * FROM user WHERE id_tuteur =" + id, connectionPool);
 			container = new SQLContainer(que);
 		}catch (SQLException e) {
 		e.printStackTrace();

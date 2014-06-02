@@ -12,29 +12,36 @@ import com.vaadin.data.util.ObjectProperty;
 import com.vaadin.data.util.PropertysetItem;
 import com.vaadin.data.util.sqlcontainer.SQLContainer;
 import com.vaadin.data.validator.StringLengthValidator;
+import com.vaadin.event.ShortcutListener;
+import com.vaadin.event.ShortcutAction.KeyCode;
 import com.vaadin.terminal.Sizeable;
 import com.vaadin.ui.*;
 import com.vaadin.ui.Button.ClickEvent;
+import com.vaadin.ui.Button.ClickListener;
 
 /**
  * Main application class.
  */
 public class LearnApplication extends Application {
+	Window mainwindow = new Window("EVALUATION DES COMPETENCES");
+	VerticalLayout loginLayout;
 
 	@SuppressWarnings("deprecation")
 	@Override
 	public void init() {
-		Window mainwindow = new Window("EVALUATION DES COMPETENCES");
 		Header head=new Header();
 		Login login = new Login(mainwindow);		
 		Tuteur tuteur = new Tuteur();
 		Eleve eleve = new Eleve(3);
 		VerticalLayout vsplit = new VerticalLayout();
-		vsplit.addComponent(head);
-		vsplit.addComponent(tuteur);
+
+		vsplit.addComponent(login);
 		mainwindow.setContent(vsplit);
 		setMainWindow(mainwindow);
+		
 	}
+	
+	
 }
 
 	
