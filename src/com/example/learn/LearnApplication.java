@@ -37,7 +37,9 @@ public class LearnApplication extends Application {
 
 		vsplit.addComponent(login);
 		mainwindow.setContent(vsplit);
+		mainwindow.addStyleName("root");
 		setMainWindow(mainwindow);
+		setTheme("learntheme");
 		
 	}
 	

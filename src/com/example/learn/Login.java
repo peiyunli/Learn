@@ -23,7 +23,6 @@ import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.Window;
-
 public class Login extends Panel {
 	VerticalLayout loginLayout;
 	public Login(Window window) {
