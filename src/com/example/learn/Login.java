@@ -30,30 +30,33 @@ public class Login extends Panel {
         addStyleName("login");
         loginLayout = new VerticalLayout();
         loginLayout.setSizeFull();
-        loginLayout.addStyleName("login-layout");
+ 
         this.addComponent(loginLayout);
-
-        final CssLayout loginPanel = new CssLayout();
-        loginPanel.addStyleName("login-panel");
-
+        
         HorizontalLayout labels = new HorizontalLayout();
         labels.setWidth("100%");
         labels.setMargin(true);
+        labels.setSpacing(true);
         labels.addStyleName("labels");
-        loginPanel.addComponent(labels);
+        loginLayout.addStyleName("login-layout");
+        
+        VerticalLayout loginPanel = new VerticalLayout();
+        loginPanel.addStyleName("login-panel");
+
 
         Label welcome = new Label("Welcome");
         welcome.setSizeUndefined();
         welcome.addStyleName("h4");
         labels.addComponent(welcome);
-        labels.setComponentAlignment(welcome, Alignment.MIDDLE_LEFT);
+        labels.setComponentAlignment(welcome, Alignment.MIDDLE_RIGHT);
+        loginPanel.addComponent(labels);
 
         Label title = new Label("Evaluation of  Competence");
         title.setSizeUndefined();
         title.addStyleName("h2");
         title.addStyleName("light");
         labels.addComponent(title);
-        labels.setComponentAlignment(title, Alignment.MIDDLE_RIGHT);
+        labels.setComponentAlignment(title, Alignment.MIDDLE_LEFT);
 
         HorizontalLayout fields = new HorizontalLayout();
         fields.setSpacing(true);
@@ -70,7 +73,6 @@ public class Login extends Panel {
         final Button signin = new Button("Sign In");
         signin.addStyleName("default");
         fields.addComponent(signin);
-        fields.setComponentAlignment(signin, Alignment.BOTTOM_LEFT);
         
         final ShortcutListener enter = new ShortcutListener("Sign In",
                 KeyCode.ENTER, null) {
@@ -82,13 +84,13 @@ public class Login extends Panel {
 
        
         signin.addShortcutListener(enter);
-
         loginPanel.addComponent(fields);
-
+        loginPanel.setComponentAlignment(fields, Alignment.MIDDLE_CENTER);
         loginLayout.addComponent(loginPanel);
         loginLayout.setComponentAlignment(loginPanel, Alignment.MIDDLE_CENTER);
-        this.addComponent(loginLayout);
 
+       
+       
 	}
 
 }
