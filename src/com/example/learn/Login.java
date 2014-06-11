@@ -72,7 +72,7 @@ public class Login extends Panel {
 
         final Button signin = new Button("Sign In");
         signin.addStyleName("default");
-        fields.addComponent(signin);
+       
         
         final ShortcutListener enter = new ShortcutListener("Sign In",
                 KeyCode.ENTER, null) {
@@ -85,7 +85,9 @@ public class Login extends Panel {
        
         signin.addShortcutListener(enter);
         loginPanel.addComponent(fields);
+        loginPanel.addComponent(signin);
         loginPanel.setComponentAlignment(fields, Alignment.MIDDLE_CENTER);
+        loginPanel.setComponentAlignment(signin, Alignment.MIDDLE_CENTER);
         loginLayout.addComponent(loginPanel);
         loginLayout.setComponentAlignment(loginPanel, Alignment.MIDDLE_CENTER);
 

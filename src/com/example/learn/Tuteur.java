@@ -18,46 +18,100 @@ import com.vaadin.event.ItemClickEvent;
 import com.vaadin.event.ItemClickEvent.ItemClickListener;
 import com.vaadin.terminal.Sizeable;
 import com.vaadin.ui.Button;
+import com.vaadin.ui.Button.ClickEvent;
+import com.vaadin.ui.Button.ClickListener;
+import com.vaadin.ui.ComboBox;
 import com.vaadin.ui.Field.ValueChangeEvent;
+import com.vaadin.ui.MenuBar.Command;
+import com.vaadin.ui.MenuBar.MenuItem;
+import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Component;
+import com.vaadin.ui.CssLayout;
 import com.vaadin.ui.Field;
 import com.vaadin.ui.FormLayout;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.HorizontalSplitPanel;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.ListSelect;
+import com.vaadin.ui.MenuBar;
+import com.vaadin.ui.NativeButton;
 import com.vaadin.ui.Panel;
+import com.vaadin.ui.PopupView.Content;
 import com.vaadin.ui.Table;
 import com.vaadin.ui.TableFieldFactory;
 import com.vaadin.ui.TextArea;
 import com.vaadin.ui.TextField;
+import com.vaadin.ui.VerticalLayout;
+import com.vaadin.ui.Window;
 
 
 
-public class Tuteur extends HorizontalLayout implements ValueChangeListener {
+public class Tuteur extends Panel implements ValueChangeListener {
 	private Oracle oracle;
 	private SQLContainer competence;
 	private SQLContainer eleve;
-	private ListSelect select;
+	private ComboBox select;
+	HorizontalLayout root=new HorizontalLayout();
+	VerticalLayout content = new VerticalLayout();
+	CssLayout menu = new CssLayout();
 
 	public Tuteur() {
 				
 		oracle = new Oracle("jdbc:mysql://localhost:8889/ISEP", "root", "root");
 		eleve =oracle.eleve(1);
+	             setSizeFull();
+	             addStyleName("transactions");
+                 addComponent(root);
+                 root.addComponent(new VerticalLayout() {
+                     // Sidebar
+                     {   
+                         addStyleName("sidebar");
+                         setWidth(null);
+                         setHeight("700px");
+                 addComponent(new CssLayout() {
+                     {
+                         addStyleName("branding");
+                         Label logo = new Label(
+                                 "Platform of Evaluation");
+                 
+                         logo.setSizeUndefined();
+                         addComponent(logo);
+                                                         }
+                 });
 
-		select = new ListSelect("Groupe1");
+                 // Main menu
+            
+
+                 // User menu
+  
+
+                         
+                         select = new ComboBox();
+                         select.setInputPrompt("Select a name");
+                 		
+                 		//select.setNewItemsAllowed(true);
+                 		select.setNullSelectionAllowed(false);
+                 		select.setContainerDataSource(eleve);
+                 		select.setItemCaptionPropertyId("name");
+                 		select.setImmediate(true);
+                         menu.addComponent(select);
+                         addComponent(menu);
+                     //    menu.addStyleName("menu");
+                         menu.setHeight("100%");
+
+                 		
+                 		
+                     }
+                 });select.addListener(this);
+           
+             }
+         
+         // Content
+   
+
 		
-		//select.setNewItemsAllowed(true);
-		select.setNullSelectionAllowed(false);
-		select.setContainerDataSource(eleve);
-		select.setItemCaptionPropertyId("name");
-		select.setImmediate(true);
-        select.addListener(this);
 
-		this.addComponent(select);
-		this.setSizeFull();
-
-	}
+	
  
 	
 
@@ -68,14 +122,20 @@ public class Tuteur extends HorizontalLayout implements ValueChangeListener {
 		String nom = (String) item.getItemProperty("name").getValue();
 		Integer id = (Integer) select.getContainerProperty(select.getValue(), "id_user").getValue();
 		System.out.println(id);
+			content.removeAllComponents();
+		compView(id);
+	}
+	
+	public void compView(Integer id){
+	
 		competence=oracle.competence(id);
-		Table comp=new Table(nom);
+		Table comp=new Table();
 
 		comp.setContainerDataSource(competence);
 		
 		
 		
-		comp.setPageLength(10); // the number of rows per page
+		 // the number of rows per page
 		comp.setSizeFull(); // the table will fill the window
 		comp.setImmediate(true); // the server is notify each time I select a row or modify values 
 		comp.setSelectable(true); // the user is allowed to select rows
@@ -93,16 +153,49 @@ public class Tuteur extends HorizontalLayout implements ValueChangeListener {
 				return null;
 			}
         });
+      
 
-
-
+            comp.addStyleName("borderless");
 			
-			Button submit=new Button("submit");
-			this.addComponent(comp);
-			this.addComponent(submit);
-			this.setMargin(true);
+			Button submit=new Button("submit",this,"submmit");
+			
+			HorizontalLayout toolbar = new HorizontalLayout();
+	    	toolbar.setWidth("100%");
 
+	    	toolbar.setSpacing(true);
+	    	toolbar.setMargin(true);
+	    	
+	    	toolbar.addStyleName("toolbar");
+
+           
+              
+            //comp.setColumnAlignment("Note", Alignment.TOP_RIGHT);
+	    	Label title = new Label("APP Informatique");
+	    	title.addStyleName("h1");
+	    	title.setHeight("100px");
+	    	toolbar.addComponent(title);
+
+			root.addComponent(content);
+			toolbar.addComponent(submit);
+			toolbar.setComponentAlignment(submit, Alignment.TOP_RIGHT);
+			content.addComponent(toolbar);
+            content.addStyleName("view-content");
+            content.setWidth("1200px");
+            content.addComponent(comp);
+           // root.setComponentAlignment(content, Alignment.MIDDLE_CENTER);
 			}
+	
+	
+	public void submmit(){
+		try {
+			competence.commit();
+			getWindow().showNotification("Success");
+			} catch (Exception e) {
+			
+			} 
+	}
 
 	}
+
+
 
