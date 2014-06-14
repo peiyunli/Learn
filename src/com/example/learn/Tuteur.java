@@ -55,10 +55,9 @@ public class Tuteur extends Panel implements ValueChangeListener {
 	VerticalLayout content = new VerticalLayout();
 	CssLayout menu = new CssLayout();
 
-	public Tuteur() {
-				
+	public Tuteur(Integer id) {
 		oracle = new Oracle("jdbc:mysql://localhost:8889/ISEP", "root", "root");
-		eleve =oracle.eleve(1);
+		eleve =oracle.eleve(id);
 	             setSizeFull();
 	             addStyleName("transactions");
                  addComponent(root);
@@ -109,12 +108,7 @@ public class Tuteur extends Panel implements ValueChangeListener {
          // Content
    
 
-		
-
 	
- 
-	
-
 	@Override
 	public void valueChange(com.vaadin.data.Property.ValueChangeEvent event) {
 		RowId row = (RowId) select.getValue();

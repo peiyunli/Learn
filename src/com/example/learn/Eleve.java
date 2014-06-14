@@ -1,6 +1,8 @@
 package com.example.learn;
 
 import com.vaadin.data.Container;
+import com.vaadin.data.Property.ValueChangeListener;
+import com.vaadin.data.util.filter.And;
 import com.vaadin.data.util.filter.Compare;
 import com.vaadin.data.util.sqlcontainer.RowId;
 import com.vaadin.data.util.sqlcontainer.RowItem;
@@ -19,17 +21,18 @@ import com.vaadin.ui.TableFieldFactory;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 
-public class Eleve extends Panel{
+public class Eleve extends Panel {
 	private SQLContainer competence;
-	private SQLContainer eleve;
+	private SQLContainer cours;
+	private Oracle oracle;
 	HorizontalLayout root=new HorizontalLayout();
 	VerticalLayout content = new VerticalLayout();
 	CssLayout menu = new CssLayout();
 	private ComboBox select;
 	
-	public Eleve(Integer id){
+	public Eleve(final Integer id){
 		Oracle oracle = new Oracle("jdbc:mysql://localhost:8889/ISEP", "root", "root");
-		eleve =oracle.eleve(1);
+		cours =oracle.cours(3);
         setSizeFull();
         addStyleName("transactions");
         addComponent(root);
@@ -62,18 +65,23 @@ public class Eleve extends Panel{
         		
         		//select.setNewItemsAllowed(true);
         		select.setNullSelectionAllowed(false);
-        		select.setContainerDataSource(eleve);
+        		select.setContainerDataSource(cours);
         		select.setItemCaptionPropertyId("name");
         		select.setImmediate(true);
                 menu.addComponent(select);
                 addComponent(menu);
             //    menu.addStyleName("menu");
                 menu.setHeight("100%");
-
         		
         		
             }
-        });select.addListener(this);
+        });select.addListener(new ValueChangeListener() {
+        		@Override
+        		public void valueChange(com.vaadin.data.Property.ValueChangeEvent event) {
+            Integer id_tuteur = (Integer) select.getContainerProperty(select.getValue(), "id_tuteur").getValue();
+        	content.removeAllComponents();
+           
+        }});
   
     }
 
@@ -86,21 +94,12 @@ public class Eleve extends Panel{
 
 
 
-@Override
-public void valueChange(com.vaadin.data.Property.ValueChangeEvent event) {
-RowId row = (RowId) select.getValue();
-RowItem item = (RowItem)eleve.getItem(row);	     
-String nom = (String) item.getItemProperty("name").getValue();
-Integer id = (Integer) select.getContainerProperty(select.getValue(), "id_user").getValue();
-System.out.println(id);
-	content.removeAllComponents();
-compView(id);
-}
 
-public void compView(Integer id){
-
-competence=oracle.queryTable("competence");
-competence.addContainerFilter(new Compare.Equal("id_eleve", id));
+public void compView(Integer id_eleve){
+	System.out.println("test");
+	competence=oracle.queryTable("competence");
+	System.out.println("test");
+	//competence.addContainerFilter(new Compare.Equal("id_eleve", id_eleve));
 Table comp=new Table();
 
 comp.setContainerDataSource(competence);
@@ -112,23 +111,11 @@ comp.setSizeFull(); // the table will fill the window
 comp.setImmediate(true); // the server is notify each time I select a row or modify values 
 comp.setSelectable(true); // the user is allowed to select rows
 comp.setMultiSelect(false); // the user is not allowed to select more than one row
-comp.setEditable(true); // the user is allowed to modify values in the selected row
-comp.setTableFieldFactory(new TableFieldFactory() {
-	@Override
-	public Field createField(Container container, Object itemId,
-			Object propertyId, Component uiContext) {
-		// TODO Auto-generated method stub
-       if (propertyId.toString().equals("note")) {
-           return new TextField();
-       }
-		return null;
-	}
-});
 
 
    comp.addStyleName("borderless");
 	
-	Button submitButton=new Button("submit",this,"submmit");
+	
 	
 	HorizontalLayout toolbar = new HorizontalLayout();
 	toolbar.setWidth("100%");
@@ -147,8 +134,6 @@ comp.setTableFieldFactory(new TableFieldFactory() {
 	toolbar.addComponent(title);
 
 	root.addComponent(content);
-	toolbar.addComponent(submitButton);
-	toolbar.setComponentAlignment(submitButton, Alignment.TOP_RIGHT);
 	content.addComponent(toolbar);
    content.addStyleName("view-content");
    content.setWidth("1200px");
@@ -157,14 +142,6 @@ comp.setTableFieldFactory(new TableFieldFactory() {
 	}
 
 
-public void submmit(){
-try {
-	System.out.println("submit");
-	competence.commit();
-	getWindow().showNotification("Success");
-	} catch (Exception e) {
-		System.err.println(e.getMessage());
-	} 
-}
+
 
 }

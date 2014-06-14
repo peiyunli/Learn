@@ -17,8 +17,8 @@ public class Oracle {
 		try {
 			connectionPool = new SimpleJDBCConnectionPool(
 					"com.mysql.jdbc.Driver", server, user, pwd, 2, 2);
-			System.out.println("connection pool created for Oracle on "
-					+ server);
+			//System.out.println("connection pool created for Oracle on "
+			//		+ server);
 		} catch (SQLException e) {
 			// Handle error
 			e.printStackTrace();
@@ -68,10 +68,10 @@ public class Oracle {
 		return container;
 	}
 	
-	public SQLContainer competence(Integer id){
+	public SQLContainer competence(Integer id,Integer id_tuteur){
 		SQLContainer container = null;
 		try {
-			FreeformQuery que = new FreeformQuery("SELECT c.name, c.note FROM competence c WHERE id_eleve =" + id, connectionPool);
+			FreeformQuery que = new FreeformQuery("SELECT * FROM competence c WHERE id_eleve =" + id + "and id_tuteur=" + id_tuteur, connectionPool);
 			container = new SQLContainer(que);
 		}catch (SQLException e) {
 		e.printStackTrace();
@@ -83,6 +83,18 @@ public class Oracle {
 		SQLContainer container = null;
 		try {
 			FreeformQuery que = new FreeformQuery("SELECT * FROM user WHERE id_tuteur =" + id, connectionPool);
+			System.out.println(id);
+			container = new SQLContainer(que);
+		}catch (SQLException e) {
+		e.printStackTrace();
+	}  
+		return container;
+}
+	public SQLContainer cours(Integer id){
+		SQLContainer container = null;
+		try {
+			FreeformQuery que = new FreeformQuery("select * from relation natural join cours where relation.id_eleve =" + id , connectionPool);
+
 			container = new SQLContainer(que);
 		}catch (SQLException e) {
 		e.printStackTrace();
