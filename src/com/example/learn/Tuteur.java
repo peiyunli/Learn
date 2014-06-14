@@ -128,7 +128,8 @@ public class Tuteur extends Panel implements ValueChangeListener {
 	
 	public void compView(Integer id){
 	
-		competence=oracle.competence(id);
+		competence=oracle.queryTable("competence");
+		competence.addContainerFilter(new Compare.Equal("id_eleve", id));
 		Table comp=new Table();
 
 		comp.setContainerDataSource(competence);
@@ -141,7 +142,7 @@ public class Tuteur extends Panel implements ValueChangeListener {
 		comp.setSelectable(true); // the user is allowed to select rows
 		comp.setMultiSelect(false); // the user is not allowed to select more than one row
 		comp.setEditable(true); // the user is allowed to modify values in the selected row
-		
+		comp.setVisibleColumns(new Object[]{"name","note"});
 		comp.setTableFieldFactory(new TableFieldFactory() {
 			@Override
 			public Field createField(Container container, Object itemId,
@@ -157,7 +158,7 @@ public class Tuteur extends Panel implements ValueChangeListener {
 
             comp.addStyleName("borderless");
 			
-			Button submit=new Button("submit",this,"submmit");
+			Button submitButton=new Button("submit",this,"submmit");
 			
 			HorizontalLayout toolbar = new HorizontalLayout();
 	    	toolbar.setWidth("100%");
@@ -176,8 +177,8 @@ public class Tuteur extends Panel implements ValueChangeListener {
 	    	toolbar.addComponent(title);
 
 			root.addComponent(content);
-			toolbar.addComponent(submit);
-			toolbar.setComponentAlignment(submit, Alignment.TOP_RIGHT);
+			toolbar.addComponent(submitButton);
+			toolbar.setComponentAlignment(submitButton, Alignment.TOP_RIGHT);
 			content.addComponent(toolbar);
             content.addStyleName("view-content");
             content.setWidth("1200px");
@@ -188,10 +189,11 @@ public class Tuteur extends Panel implements ValueChangeListener {
 	
 	public void submmit(){
 		try {
+			System.out.println("submit");
 			competence.commit();
 			getWindow().showNotification("Success");
 			} catch (Exception e) {
-			
+				System.err.println(e.getMessage());
 			} 
 	}
 

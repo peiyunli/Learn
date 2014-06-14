@@ -34,7 +34,7 @@ public class Oracle {
 
 			container = new SQLContainer(tq);
 
-			System.out.println("container created for table " + tableName);
+			//System.out.println("container created for table " + tableName);
 
 		} catch (SQLException e) {
 			e.printStackTrace();

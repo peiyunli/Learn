@@ -31,7 +31,7 @@ public class LearnApplication extends Application {
 	VerticalLayout loginLayout;
 	CssLayout menu = new CssLayout();
 	CssLayout content = new CssLayout();
-	Eleve eleve;
+	Eleve eleve=new Eleve(3);
 	Tuteur tuteur=new Tuteur();
 	@SuppressWarnings("deprecation")
 	@Override
