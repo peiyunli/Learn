@@ -1,5 +1,11 @@
 package com.example.learn;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
 import com.vaadin.data.Container;
 import com.vaadin.data.Container.Filter;
 import com.vaadin.data.Container.PropertySetChangeListener;
@@ -46,27 +52,28 @@ import com.vaadin.ui.Window;
 
 
 
-public class Tuteur extends Panel implements ValueChangeListener {
+public class Tuteur extends Panel {
 	private Oracle oracle;
 	private SQLContainer competence;
 	private SQLContainer eleve;
+	private SQLContainer cours;
 	private ComboBox select;
 	HorizontalLayout root=new HorizontalLayout();
 	VerticalLayout content = new VerticalLayout();
 	CssLayout menu = new CssLayout();
 
-	public Tuteur(Integer id) {
+	public Tuteur(final Integer id,final String cours) {
 		oracle = new Oracle("jdbc:mysql://localhost:8889/ISEP", "root", "root");
 		eleve =oracle.eleve(id);
 	             setSizeFull();
-	             addStyleName("transactions");
+	             this.addStyleName("transactions");
                  addComponent(root);
                  root.addComponent(new VerticalLayout() {
                      // Sidebar
                      {   
                          addStyleName("sidebar");
                          setWidth(null);
-                         setHeight("700px");
+                         setHeight("680px");
                  addComponent(new CssLayout() {
                      {
                          addStyleName("branding");
@@ -75,14 +82,8 @@ public class Tuteur extends Panel implements ValueChangeListener {
                  
                          logo.setSizeUndefined();
                          addComponent(logo);
-                                                         }
+                                    }
                  });
-
-                 // Main menu
-            
-
-                 // User menu
-  
 
                          
                          select = new ComboBox();
@@ -98,32 +99,30 @@ public class Tuteur extends Panel implements ValueChangeListener {
                      //    menu.addStyleName("menu");
                          menu.setHeight("100%");
 
-                 		
-                 		
                      }
-                 });select.addListener(this);
-           
-             }
+                 });
+                 select.addListener(new ValueChangeListener() {
+             		@Override
+            		public void valueChange(com.vaadin.data.Property.ValueChangeEvent event) {
+             			RowId row = (RowId) select.getValue();
+             			RowItem item = (RowItem)eleve.getItem(row);	     
+             			String nom = (String) item.getItemProperty("name").getValue();
+             			Integer id_eleve = (Integer) select.getContainerProperty(select.getValue(), "id_user").getValue();
+             				content.removeAllComponents();
+             			compView(id_eleve,id,cours);
+            }});
+      
+        }
          
          // Content
    
 
 	
-	@Override
-	public void valueChange(com.vaadin.data.Property.ValueChangeEvent event) {
-		RowId row = (RowId) select.getValue();
-		RowItem item = (RowItem)eleve.getItem(row);	     
-		String nom = (String) item.getItemProperty("name").getValue();
-		Integer id = (Integer) select.getContainerProperty(select.getValue(), "id_user").getValue();
-		System.out.println(id);
-			content.removeAllComponents();
-		compView(id);
-	}
-	
-	public void compView(Integer id){
+	public void compView(Integer id,Integer id_tuteur,String cours){
 	
 		competence=oracle.queryTable("competence");
 		competence.addContainerFilter(new Compare.Equal("id_eleve", id));
+		competence.addContainerFilter(new Compare.Equal("id_tut", id_tuteur));
 		Table comp=new Table();
 
 		comp.setContainerDataSource(competence);
@@ -162,10 +161,8 @@ public class Tuteur extends Panel implements ValueChangeListener {
 	    	
 	    	toolbar.addStyleName("toolbar");
 
-           
-              
             //comp.setColumnAlignment("Note", Alignment.TOP_RIGHT);
-	    	Label title = new Label("APP Informatique");
+	    	Label title = new Label(cours);
 	    	title.addStyleName("h1");
 	    	title.setHeight("100px");
 	    	toolbar.addComponent(title);

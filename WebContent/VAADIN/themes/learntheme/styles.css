@@ -1,18 +1,98 @@
 @import url(../reindeer/styles.css);
 
-@import url(dashboard.css);
-
-
-/* Font embeds and keyframe definitions need to be 
- * on the top level of the stylesheet, not nested 
- * with any selectors, so we output them here */
-@include font-open-sans;
-@include icons-fontello;
-@include dashboard-keyframes;
-
-
-/* Output the actual theme selectors */
-
-.dashboard {
-	@include dashboard;
+.v-app {
+background:#353637;
 }
+
+.v-caption {
+	font-size: 13px;
+	color: #6c737a;
+	padding-bottom: 0.3em;
+}
+
+.v-caption-on-top .v-caption {
+	padding-bottom: 0.3em;
+}
+
+.v-label.h2 {
+		color: #404346;
+		font-size: 22px;
+		line-height: 1;
+		font-weight: normal;
+		padding: .5em 0;
+		-webkit-font-smoothing: antialiased;
+	}
+	
+.v-label.light {
+		color: #979699;
+	}
+
+.v-label.h4 {
+		font-weight: bold;
+		text-transform: uppercase;
+		color: #349aff;
+		font-size: 14px;
+	}
+	
+.v-textfield,
+	.v-filterselect {
+		border-radius:3px;
+		border: 1px solid #c9c8c7;
+		border-top-color: #d8d7d6;
+		
+		background: #fff;
+		box-shadow: 0 0 0 2px rgba(51,50,49,.07);
+		
+		font: inherit;
+		color: inherit;
+		line-height: 1;
+		margin: 0;
+	}
+	
+.login-panel {
+		background: #fff;
+		 border-radius: 4px;
+		 box-shadow:0 4px 20px rgba(0,0,0,.5);
+		padding: 1em 4em 2em 1em;
+
+	}
+	
+.v-horizontallayout-spacing-on {
+    padding-left: 25px;
+}
+
+.transactions {
+	background:#353637;
+}
+	
+.sidebar {
+		background: #414243 url(img/sidebar-gradient.png) repeat-y top right;
+        border-radius: 4px;
+		-webkit-user-select: none;
+		-moz-user-select: none;
+		-ms-user-select: none;
+		user-select: none;
+	}
+	
+		.sidebar .branding {
+		border-bottom: 1px solid #353637;
+		position: relative;
+		-webkit-font-smoothing: antialiased;
+	}
+	
+		.sidebar .branding .v-label {
+		position: relative;
+		z-index: 2;
+		
+		white-space: normal;
+		font-size: 16px;
+		line-height: 1.1;
+		color: #fff;
+		text-shadow: 0 2px 2px rgba(0,0,0,.5);
+		
+		/* WTH? Why is inline-block forced as an inline style? */
+		display: block !important;
+		padding: .8em .8em 1.2em;
+		
+		box-shadow:inset 0 0 5px 2px rgba(0,0,0,.5);
+	}

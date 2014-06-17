@@ -82,7 +82,7 @@ public class Oracle {
 	public SQLContainer eleve(Integer id){
 		SQLContainer container = null;
 		try {
-			FreeformQuery que = new FreeformQuery("SELECT * FROM user WHERE id_tuteur =" + id, connectionPool);
+			FreeformQuery que = new FreeformQuery("SELECT * FROM user inner join relation on user.id_user=relation.id_eleve WHERE relation.id_tuteur =" + id, connectionPool);
 			System.out.println(id);
 			container = new SQLContainer(que);
 		}catch (SQLException e) {
@@ -94,6 +94,17 @@ public class Oracle {
 		SQLContainer container = null;
 		try {
 			FreeformQuery que = new FreeformQuery("select * from relation natural join cours where relation.id_eleve =" + id , connectionPool);
+
+			container = new SQLContainer(que);
+		}catch (SQLException e) {
+		e.printStackTrace();
+	}  
+		return container;
+}
+	public SQLContainer coursName(Integer id){
+		SQLContainer container = null;
+		try {
+			FreeformQuery que = new FreeformQuery("select * from cours where id_tuteur =" + id , connectionPool);
 
 			container = new SQLContainer(que);
 		}catch (SQLException e) {

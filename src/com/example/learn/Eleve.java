@@ -31,8 +31,9 @@ public class Eleve extends Panel {
 	private ComboBox select;
 	
 	public Eleve(final Integer id){
-		Oracle oracle = new Oracle("jdbc:mysql://localhost:8889/ISEP", "root", "root");
-		cours =oracle.cours(3);
+		final Oracle oracle = new Oracle("jdbc:mysql://localhost:8889/ISEP", "root", "root");
+		cours =oracle.cours(id);
+		
         setSizeFull();
         addStyleName("transactions");
         addComponent(root);
@@ -80,7 +81,8 @@ public class Eleve extends Panel {
         		public void valueChange(com.vaadin.data.Property.ValueChangeEvent event) {
             Integer id_tuteur = (Integer) select.getContainerProperty(select.getValue(), "id_tuteur").getValue();
         	content.removeAllComponents();
-           
+        	competence=oracle.queryTable("competence");
+           compView(id,id_tuteur);
         }});
   
     }
@@ -95,11 +97,11 @@ public class Eleve extends Panel {
 
 
 
-public void compView(Integer id_eleve){
-	System.out.println("test");
-	competence=oracle.queryTable("competence");
-	System.out.println("test");
-	//competence.addContainerFilter(new Compare.Equal("id_eleve", id_eleve));
+public void compView(Integer id_eleve,Integer id_tut){
+
+	competence.addContainerFilter(new Compare.Equal("id_eleve", id_eleve));
+	competence.addContainerFilter(new Compare.Equal("id_tut", id_tut));
+
 Table comp=new Table();
 
 comp.setContainerDataSource(competence);
@@ -111,7 +113,7 @@ comp.setSizeFull(); // the table will fill the window
 comp.setImmediate(true); // the server is notify each time I select a row or modify values 
 comp.setSelectable(true); // the user is allowed to select rows
 comp.setMultiSelect(false); // the user is not allowed to select more than one row
-
+comp.setVisibleColumns(new Object[]{"name","note"});
 
    comp.addStyleName("borderless");
 	

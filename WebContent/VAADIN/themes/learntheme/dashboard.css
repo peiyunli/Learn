@@ -1,36 +1,11 @@
-@import url(icons/fontello.css);
-@import url(fonts/open-sans.css);
-@import url(keyframes.css);
 
-/* TODO move common mixins to base theme */
-@import url(mixins.css);
-
-/* TODO move new loading indicator to base when it's ready */
-@import url(loading-indicator.css);
-
-@import url(common.css);
-
-/* TODO move new notification theme to base as the default when they are ready */
-@import url(components/notification.css);
-
-@import url(components/textfield.css);
-@import url(components/combobox.css);
-@import url(components/tabsheet.css);
-@import url(components/label.css);
-@import url(components/table.css);
-@import url(components/window.css);
-
-@import url(views/schedule.css);
-@import url(views/sales.css);
-@import url(views/reports.css);
-@import url(views/transactions.css);
 
 .v-view {
 		overflow: hidden;
 	}
 	
-	&.v-app {
-		background: #353637;
+	.root .v-app {
+		background: #5a6066;
 	}
 	
 	&.v-app[id*="overlays"] {
@@ -69,9 +44,10 @@
 
 	
 	.main-view,
-	.login-layout {
+	.loginLayout {
 		position: relative;
 		z-index: 2;
+
 	}
 	
 	div.login-panel {
@@ -100,6 +76,12 @@
 		color: #c4cacf;
 		letter-spacing: -0.05em;
 	}
+	
+	.login-panel .h4 {
+font-weight: bold;
+text-transform: uppercase;
+color: #349aff;
+}
 	
 	.login-panel .error {
 		font-size: 13px;
