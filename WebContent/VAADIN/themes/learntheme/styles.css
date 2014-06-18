@@ -96,3 +96,57 @@ background:#353637;
 		
 		box-shadow:inset 0 0 5px 2px rgba(0,0,0,.5);
 	}
+
+	
+	.sidebar .user {
+		display: block;
+		
+		border-top: 1px solid #303132;
+		background: #3b3c3d;
+		background-color: rgba(0,0,0,.1);
+		
+		color: #898c8e;
+		text-shadow: 0 1px 1px rgba(0,0,0,.5);
+		text-align:center;
+		box-shadow:inset 0 1px 0 rgba(255,255,255,.08);
+	}
+	
+	.sidebar .user > .v-slot {
+		display: inline-block;
+		width: 50%;
+	}
+	
+	.sidebar .user > .v-slot:first-child {
+		width: 34px;
+	}
+	
+
+	
+		.sidebar .user .v-image {
+		width: 34px;
+		height: 34px;
+		border-right: 1px solid #313132;
+	}
+	
+		.sidebar .user .icon-cancel {
+		border: 1px solid #303132;
+		background-color: black;
+	
+	}
+	
+	.sidebar .user .set {
+	  border-bottom: 1px solid #313132;
+	}
+	
+	.sidebar .user .button {
+	   background-color: black;
+	}
+	
+	.sidebar .menu {
+		overflow: auto;
+		height: 100%;
+	}
+
+	.backColor{
+background:#353637;
+}

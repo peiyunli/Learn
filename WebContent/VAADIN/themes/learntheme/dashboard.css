@@ -159,7 +159,7 @@ color: #349aff;
 		padding: 2px;
 	}
 	
-	.sidebar .menu .v-ddwrapper .v-nativebutton {
+	.sidebar .menu .v-ddwrapper .v-button {
 		margin: -2px -2px;
 	}
 	
@@ -170,7 +170,7 @@ color: #349aff;
 		@include border-radius(4px);
 	}
 	
-	.sidebar .menu .v-nativebutton {
+	.sidebar .menu .v-button {
 		/* TODO mixin */
 		-webkit-appearance: none;
 		
@@ -208,7 +208,7 @@ color: #349aff;
 		height: 0;
 	}
 	
-	.sidebar .menu .v-nativebutton-caption {
+	.sidebar .menu .v-button-caption {
 		font-size: 12px;
 		font-weight: 600;
 		text-transform: uppercase;
@@ -216,22 +216,22 @@ color: #349aff;
 		margin: .2em 0 0 0;
 	}
 	
-	.sidebar .menu .v-nativebutton:focus {
+	.sidebar .menu .v-button:focus {
 		outline: none;
 	}
 	
-	.sidebar .menu .v-nativebutton:hover,
-	.sidebar .menu .v-nativebutton:focus {
+	.sidebar .menu .v-button:hover,
+	.sidebar .menu .v-button:focus {
 		color: #e1e1e1;
 	}
 	
-	.sidebar .menu .v-nativebutton:before {
+	.sidebar .menu .v-button:before {
 		font-size: 24px;
 		line-height: 1;
 		margin: 0;
 	}
 	
-	.v-webkit & .menu .v-nativebutton:before {
+	.v-webkit & .menu .v-button:before {
 		/* TODO mixin */
 		background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#e8e8e8), color-stop(100%,#d3d3d3));
 		background: -webkit-linear-gradient(top, #fff 0%,#777 100%);
@@ -249,16 +249,16 @@ color: #349aff;
 		transition: opacity ease-in-out 200ms;
 	}
 	
-	.v-webkit & .menu .v-nativebutton:hover:before,
-	.v-webkit & .menu .v-nativebutton:focus:before {
+	.v-webkit & .menu .v-button:hover:before,
+	.v-webkit & .menu .v-button:focus:before {
 		opacity: 1;
 	}
 	
-	.sidebar .menu .v-nativebutton:active {
+	.sidebar .menu .v-button:active {
 		background: rgba(0,0,0,.1);
 	}
 	
-	.sidebar .menu .v-nativebutton.selected {
+	.sidebar .menu .v-button.selected {
 		color: #e1e1e1;
 		text-shadow: 0 2px 2px rgba(0,0,0,.5);
 		
@@ -278,7 +278,7 @@ color: #349aff;
 		-webkit-transition: none;
 	}
 	
-	.v-webkit & .menu .v-nativebutton.selected:before {
+	.v-webkit & .menu .v-button.selected:before {
 		text-shadow: none;
 		opacity: 1;
 	}
@@ -308,7 +308,7 @@ color: #349aff;
 		@include box-shadow(0 1px 1px rgba(0,0,0,.3));
 	}
 	
-	.menu .v-nativebutton .badge {
+	.menu .v-button .badge {
 		position: absolute;
 		top: 6px;
 		right: 8px;
@@ -358,7 +358,7 @@ color: #349aff;
 		-webkit-font-smoothing: antialiased;
 	}
 	
-	.sidebar .user .v-nativebutton,
+	.sidebar .user .v-button,
 	.sidebar .user .v-menubar {
 		/* TODO mixin */
 		-webkit-appearance: none;
@@ -372,20 +372,20 @@ color: #349aff;
 		color: inherit;
 	}
 	
-	.sidebar .user .v-nativebutton:focus {
+	.sidebar .user .v-button:focus {
 		outline: none;
 	}
 	
-	.sidebar .user .v-nativebutton:hover,
+	.sidebar .user .v-button:hover,
 	.sidebar .user .v-menubar-menuitem:hover {
 		color: #e1e1e1;
 	}
 	
-	.sidebar .user .v-nativebutton-caption {
+	.sidebar .user .v-button-caption {
 		display: none;
 	}
 	
-	.sidebar .user .v-nativebutton:before,
+	.sidebar .user .v-button:before,
 	.sidebar .user .v-menubar-menuitem:before {
 		font-size: 16px;
 		margin: 0;

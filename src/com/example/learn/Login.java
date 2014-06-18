@@ -87,6 +87,7 @@ public class Login extends VerticalLayout {
 		Password.setValidationVisible(true);
 		Password.addValidator(new StringLengthValidator("Must not be empty", 1,
 				100, false));
+		Password.setSecret(true);
 		Button signin=new Button("Log in", new Button.ClickListener() {
 
 					@Override
@@ -104,16 +105,16 @@ public class Login extends VerticalLayout {
 						        getWindow().showNotification("Connexion reussie");
 								if(type.equals("eleve")){
 									int id_e = get_ID(login, pwd);
-									System.out.println("eleve");
+									
 									Eleve eleve=new Eleve(id_e);
 									window.setContent(eleve);
 									//LearnApplication.set_wind_eleve(id_e);
 								}
 								else if(type.equals("tuteur")){
 									int id_t = get_ID(login, pwd);
-									System.out.println(id_t);
+								
 									String cours=get_Cours(id_t);
-									System.out.println(cours);
+									
 									Tuteur tuteur=new Tuteur(id_t,cours);
 									window.setContent(tuteur);
 								}
